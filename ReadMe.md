@@ -124,6 +124,7 @@ EXPLAIN SELECT * FROM employees_indexed WHERE department = '개발' and hire_dat
 | 1 | SIMPLE | employees\_nonindexed | null | ALL | null | null | null | null | 13743887 | 1.11 | Using where |
 
 - 참조하는 로우의 수가 "13,743,887" 건 
+- 평균 실행 시간
 
 ### indexed explain 결과 (department & hire_date 복합 인덱스 생성 전)
 `EXPLAIN SELECT * FROM employees_indexed WHERE department = '개발' and hire_date between  '2014-01-01' and '2015-01-01';`
@@ -142,3 +143,14 @@ EXPLAIN SELECT * FROM employees_indexed WHERE department = '개발' and hire_dat
 
 - 참조하는 로우의 수가 "549,884" 건
 
+
+## 실행 시간 결과
+
+- 전체 실행시간
+  - ![result_with_bar.png](result_with_bar.png)
+
+- 실행시간 분포 (케이스 전체)
+  - ![result_with_boxplot_all.png](result_with_boxplot_all.png)
+
+- 실행시간 분포 (index, nonindex 나눠서)
+  - ![result_with_boxplot_split.png](result_with_boxplot_split.png)
