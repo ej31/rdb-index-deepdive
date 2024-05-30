@@ -1,5 +1,16 @@
 # 인덱스 유무에 따른 실행 시간 비교
 
+## 실행 시간 결과
+
+- 전체 실행시간
+  - ![result_with_bar.png](result_with_bar.png)
+
+- 실행시간 분포 (케이스 전체)
+  - ![result_with_boxplot_all.png](result_with_boxplot_all.png)
+
+- 실행시간 분포 (index, nonindex 나눠서)
+  - ![result_with_boxplot_split.png](result_with_boxplot_split.png)
+
 ## 주의사항
 - Workbench, Datagrip 같은 GUI 툴에서는 기본적으로 쿼리 결과에 `limit` 절이 설정 되어 있다.
 - 이떄 `limit` 절 있는채 쿼리를 실행하면 인덱스가 있는 것과 없는 것의 실행 결과 차이가 같거나 반대로 나오는 경우가 있다.
@@ -143,14 +154,3 @@ EXPLAIN SELECT * FROM employees_indexed WHERE department = '개발' and hire_dat
 
 - 참조하는 로우의 수가 "549,884" 건
 
-
-## 실행 시간 결과
-
-- 전체 실행시간
-  - ![result_with_bar.png](result_with_bar.png)
-
-- 실행시간 분포 (케이스 전체)
-  - ![result_with_boxplot_all.png](result_with_boxplot_all.png)
-
-- 실행시간 분포 (index, nonindex 나눠서)
-  - ![result_with_boxplot_split.png](result_with_boxplot_split.png)
