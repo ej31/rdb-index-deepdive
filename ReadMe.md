@@ -14,7 +14,9 @@
 
 - 전체 실행시간
   - ![result_with_bar.png](result_with_bar.png)
+  - X축 범례 정보 : 바로 아래에 있는 `실행시간 분포 (케이스 전체)` 이미지와 동일함
 
+ 
 - 실행시간 분포 (케이스 전체)
   - ![result_with_boxplot_all.png](result_with_boxplot_all.png)
 
