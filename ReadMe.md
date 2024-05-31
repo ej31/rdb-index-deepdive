@@ -29,6 +29,88 @@ X축 범례 및 순서는 박스플롯 그래프와 같다.
     > ref> [MySQL 에는 숨겨진 인덱스가 있다](https://dev.mysql.com/doc/refman/8.4/en/innodb-index-types.html)
     > 
 
+## EXPLAIN 결과 (Range SELECT 6년)
+
+### **nonindexed explain 결과**
+
+- 수행쿼리
+    
+    ```sql
+    explain select * from employees_nonindexed where  hire_date between '2014-01-01' and '2020-01-02';
+    explain analyze select * from employees_nonindexed where  hire_date between '2014-01-01' and '2020-01-02';
+    ```
+    
+- 쿼리 결과
+    
+    | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
+    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+    | 1 | SIMPLE | employees_nonindexed | null | ALL | null | null | null | null | 100035 | 11.11 | Using where |
+    
+    ```sql
+    -> Filter: (employees_nonindexed.hire_date between '2014-01-01' and '2020-01-02')  (cost=10092 rows=11114) (actual time=0.0443..73.9 rows=60067 loops=1)
+        -> Table scan on employees_nonindexed  (cost=10092 rows=100035) (actual time=0.0311..42.6 rows=100000 loops=1)
+    
+    ```
+    
+- 참조로우: 100,035 (풀스캔)
+- 코스트: 10,092
+
+### **indexed explain 결과 (department & hire_date 복합 인덱스 생성 전)**
+
+- 수행쿼리
+    
+    ```sql
+    explain select * from employees_indexed where  hire_date between '2014-01-01' and '2020-01-02';
+    explain analyze select * from employees_indexed where  hire_date between '2014-01-01' and '2020-01-02';
+    ```
+    
+
+- 쿼리 결과   
+    
+    | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
+    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+    | 1 | SIMPLE | employees_indexed | null | ALL | null | null | null | null | 100115 | 11.11 | Using where |
+    
+    ```sql
+    -> Filter: (employees_indexed.hire_date between '2014-01-01' and '2020-01-02')  (cost=10100 rows=11123) (actual time=0.0382..43.9 rows=60067 loops=1)
+        -> Table scan on employees_indexed  (cost=10100 rows=100115) (actual time=0.0311..20.1 rows=100000 loops=1)
+    ```
+    
+- 참조로우: 100,115
+- 코스트:  10,100
+
+### **composite indexed explain 결과**
+
+- 수행쿼리
+    
+    ```sql
+    create index idx_eiwc
+    on employees_indexed (department, hire_date);
+    
+    explain select * from employees_indexed_with_composite force INDEX (idx_eiwc) where  hire_date between '2014-01-01' and '2020-01-02';
+    
+    explain analyze select * from employees_indexed_with_composite force INDEX (idx_eiwc) where  hire_date between '2014-01-01' and '2020-01-02';
+    ```
+    
+- 쿼리 결과
+ 
+    | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
+    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+    | 1 | SIMPLE | employees_indexed_with_composite | null | range | idx_eiwc | idx_eiwc | 4 | null | 1 | 100 | Using index condition |
+    
+    ```sql
+    -> Index range scan on employees_indexed_with_composite using idx_eiwc over ('2014-01-01' <= hire_date <= '2020-01-02'), with index condition: (employees_indexed_with_composite.hire_date between '2014-01-01' and '2020-01-02')  (cost=0.71 rows=1) (actual time=0.0324..79.4 rows=60067 loops=1)
+    ```
+    
+- 참조된 로우: 1
+- 코스트: 0.71
+
+# 참고사항
+
+`SELECT ANALYZE` 를 통해 도출되는 코스트는 디스크 상태 및 CPU 점유율, 컨텍스트 스위치 등에 영향을 받기 때문에 대략적인 추이 참고용으로만 사용하고 가변성 없는 절대적인 수치 값으로 보지 말아야한다.
+
+
+
 ### **주의사항**
 
 - Workbench, Datagrip 같은 GUI 툴에서는 기본적으로 쿼리 결과에`limit` 절이 설정 되어 있다.
@@ -161,83 +243,3 @@ EXPLAIN SELECT * FROM employees_indexed WHERE department = '개발' and hire_dat
 EXPLAIN SELECT * FROM employees_indexed_with_composite WHERE department = '개발' and hire_date between  '2014-01-01' and '2015-01-01';
 
 ```
-
-## EXPLAIN 결과 (Range SELECT 6년)
-
-### **nonindexed explain 결과**
-
-- 수행쿼리
-    
-    ```sql
-    explain select * from employees_nonindexed where  hire_date between '2014-01-01' and '2020-01-02';
-    explain analyze select * from employees_nonindexed where  hire_date between '2014-01-01' and '2020-01-02';
-    ```
-    
-- 쿼리 결과
-    
-    | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
-    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-    | 1 | SIMPLE | employees_nonindexed | null | ALL | null | null | null | null | 100035 | 11.11 | Using where |
-    
-    ```sql
-    -> Filter: (employees_nonindexed.hire_date between '2014-01-01' and '2020-01-02')  (cost=10092 rows=11114) (actual time=0.0443..73.9 rows=60067 loops=1)
-        -> Table scan on employees_nonindexed  (cost=10092 rows=100035) (actual time=0.0311..42.6 rows=100000 loops=1)
-    
-    ```
-    
-- 참조로우: 100,035 (풀스캔)
-- 코스트: 10,092
-
-### **indexed explain 결과 (department & hire_date 복합 인덱스 생성 전)**
-
-- 수행쿼리
-    
-    ```sql
-    explain select * from employees_indexed where  hire_date between '2014-01-01' and '2020-01-02';
-    explain analyze select * from employees_indexed where  hire_date between '2014-01-01' and '2020-01-02';
-    ```
-    
-
-- 쿼리 결과   
-    
-    | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
-    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-    | 1 | SIMPLE | employees_indexed | null | ALL | null | null | null | null | 100115 | 11.11 | Using where |
-    
-    ```sql
-    -> Filter: (employees_indexed.hire_date between '2014-01-01' and '2020-01-02')  (cost=10100 rows=11123) (actual time=0.0382..43.9 rows=60067 loops=1)
-        -> Table scan on employees_indexed  (cost=10100 rows=100115) (actual time=0.0311..20.1 rows=100000 loops=1)
-    ```
-    
-- 참조로우: 100,115
-- 코스트:  10,100
-
-### **composite indexed explain 결과**
-
-- 수행쿼리
-    
-    ```sql
-    create index idx_eiwc
-    on employees_indexed (department, hire_date);
-    
-    explain select * from employees_indexed_with_composite force INDEX (idx_eiwc) where  hire_date between '2014-01-01' and '2020-01-02';
-    
-    explain analyze select * from employees_indexed_with_composite force INDEX (idx_eiwc) where  hire_date between '2014-01-01' and '2020-01-02';
-    ```
-    
-- 쿼리 결과
- 
-    | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
-    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-    | 1 | SIMPLE | employees_indexed_with_composite | null | range | idx_eiwc | idx_eiwc | 4 | null | 1 | 100 | Using index condition |
-    
-    ```sql
-    -> Index range scan on employees_indexed_with_composite using idx_eiwc over ('2014-01-01' <= hire_date <= '2020-01-02'), with index condition: (employees_indexed_with_composite.hire_date between '2014-01-01' and '2020-01-02')  (cost=0.71 rows=1) (actual time=0.0324..79.4 rows=60067 loops=1)
-    ```
-    
-- 참조된 로우: 1
-- 코스트: 0.71
-
-# 참고사항
-
-`SELECT ANALYZE` 를 통해 도출되는 코스트는 디스크 상태 및 CPU 점유율, 컨텍스트 스위치 등에 영향을 받기 때문에 대략적인 추이 참고용으로만 사용하고 가변성 없는 절대적인 수치 값으로 보지 말아야한다.
