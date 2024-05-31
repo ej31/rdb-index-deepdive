@@ -3,6 +3,160 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="/240531_004751_employees_indexed_2014-01-01_2014-01-20_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004751_employees_indexed_with_composite_2014-01-01_2014-01-10_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004751_employees_indexed_with_composite_2014-01-01_2014-01-20_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004751_employees_nonindexed_2014-01-01_2014-01-05_loop_10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004937_employees_indexed_2014-01-01_2014-01-10_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004937_employees_indexed_2014-01-01_2014-01-20_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004937_employees_indexed_with_composite_2014-01-01_2014-01-10_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004937_employees_indexed_with_composite_2014-01-01_2014-01-20_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004937_employees_nonindexed_2014-01-01_2014-01-05_loop_10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_004937_employees_nonindexed_2014-01-01_2014-01-20_loop_10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005052_employees_indexed_2014-01-01_2017-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005052_employees_indexed_with_composite_2014-01-01_2015-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005052_employees_indexed_with_composite_2014-01-01_2017-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005052_employees_nonindexed_2014-01-01_2015-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005222_employees_indexed_2014-01-01_2016-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005222_employees_indexed_2014-01-01_2017-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005222_employees_indexed_with_composite_2014-01-01_2015-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005222_employees_indexed_with_composite_2014-01-01_2017-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_005222_employees_nonindexed_2014-01-01_2015-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/240531_012314_employees_nonindexed_2014-01-01_2017-01-01_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/employees_indexed_2014-01-01_2014-01-10_loop_1000.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/employees_indexed_2014-01-01_2014-01-20_loop_1000.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/employees_indexed_query_execution_times_140101-140105_loop_1000.csv">
           <value>
             <Attribute>
@@ -25,6 +179,27 @@
           </value>
         </entry>
         <entry key="/employees_indexed_query_execution_times_140101-140120_loop_100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/employees_indexed_with_composite_2014-01-01_2014-01-10_loop_1000.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/employees_indexed_with_composite_query_execution_times_140101-140105_loop_1000.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/employees_indexed_with_composite_query_execution_times_140101-140110_loop_1000.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
